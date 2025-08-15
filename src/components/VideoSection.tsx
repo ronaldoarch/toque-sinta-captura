@@ -16,19 +16,17 @@ const VideoSection = () => {
         
         <div className="relative mb-12 animate-slide-up">
           <div className="aspect-video bg-gradient-earth rounded-2xl shadow-soft overflow-hidden">
-            <div className="w-full h-full flex items-center justify-center bg-black/10 backdrop-blur-sm">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-golden rounded-full flex items-center justify-center mb-4 mx-auto shadow-golden">
-                  <Play className="text-white ml-1" size={32} />
-                </div>
-                <p className="text-white text-lg font-medium">
-                  Aula Gratuita - 45 minutos
-                </p>
-                <p className="text-white/80 text-sm mt-2">
-                  "Os Fundamentos da Conexão Tântrica"
-                </p>
-              </div>
-            </div>
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              poster=""
+              preload="metadata"
+            >
+              <source src="/videos/aula-gratuita-toque-sinta.mp4" type="video/mp4" />
+              <p className="text-white p-4">
+                Seu navegador não suporta o elemento de vídeo.
+              </p>
+            </video>
           </div>
         </div>
         
