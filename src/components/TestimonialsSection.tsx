@@ -42,7 +42,26 @@ const TestimonialsSection = () => {
         
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {testimonials.map((testimonial, index) => {})}
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-card p-6 rounded-2xl shadow-soft border border-border animate-slide-up">
+              <div className="flex mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-golden text-golden" />
+                ))}
+              </div>
+              
+              <Quote className="w-8 h-8 text-golden mb-4" />
+              
+              <p className="text-muted-foreground mb-6 italic">
+                "{testimonial.text}"
+              </p>
+              
+              <div className="border-t border-border pt-4">
+                <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                <p className="text-sm text-muted-foreground">{testimonial.age} anos • {testimonial.profession}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="text-center animate-fade-in">
