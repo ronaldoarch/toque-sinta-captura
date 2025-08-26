@@ -48,12 +48,17 @@ const LeadCaptureModal = ({ isOpen, onClose }: LeadCaptureModalProps) => {
 
       toast({
         title: "Sucesso!",
-        description: "E-book enviado para seu email. Verifique sua caixa de entrada.",
+        description: "E-book enviado para seu email. Redirecionando para o WhatsApp...",
       });
 
       // Reset form and close modal
       setFormData({ name: "", email: "", phone: "" });
       onClose();
+      
+      // Redirect to WhatsApp group after a short delay
+      setTimeout(() => {
+        window.open("https://chat.whatsapp.com/Gngh4SztFVG6JMv0lz72q3", "_blank");
+      }, 1500);
     } catch (error: any) {
       toast({
         title: "Erro",
