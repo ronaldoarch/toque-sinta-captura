@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Users, Award } from "lucide-react";
-
 const CourseInfoSection = () => {
-  return (
-    <section className="py-20 px-4">
+  return <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -24,7 +22,9 @@ const CourseInfoSection = () => {
             <p className="text-muted-foreground">de conteúdo exclusivo</p>
           </div>
           
-          <div className="text-center animate-slide-up" style={{animationDelay: '0.1s'}}>
+          <div className="text-center animate-slide-up" style={{
+          animationDelay: '0.1s'
+        }}>
             <div className="w-16 h-16 bg-gradient-golden rounded-full flex items-center justify-center mx-auto mb-4">
               <Users className="text-white" size={28} />
             </div>
@@ -32,7 +32,9 @@ const CourseInfoSection = () => {
             <p className="text-muted-foreground">alunos transformados</p>
           </div>
           
-          <div className="text-center animate-slide-up" style={{animationDelay: '0.2s'}}>
+          <div className="text-center animate-slide-up" style={{
+          animationDelay: '0.2s'
+        }}>
             <div className="w-16 h-16 bg-gradient-golden rounded-full flex items-center justify-center mx-auto mb-4">
               <Award className="text-white" size={28} />
             </div>
@@ -40,7 +42,9 @@ const CourseInfoSection = () => {
             <p className="text-muted-foreground">de conclusão</p>
           </div>
           
-          <div className="text-center animate-slide-up" style={{animationDelay: '0.3s'}}>
+          <div className="text-center animate-slide-up" style={{
+          animationDelay: '0.3s'
+        }}>
             <div className="w-16 h-16 bg-gradient-golden rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="text-white" size={28} />
             </div>
@@ -50,29 +54,7 @@ const CourseInfoSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 mb-16">
-          <div className="animate-slide-up">
-            <h3 className="font-serif text-3xl font-bold text-foreground mb-6">
-              Módulos do Curso
-            </h3>
-            
-            <div className="space-y-4">
-              {[
-                "Fundamentos da Filosofia Tântrica",
-                "Anatomia e Fisiologia da Sensualidade",
-                "Técnicas Básicas de Toque Consciente",
-                "Respiração e Meditação Tântrica",
-                "Massagem Sensual para Iniciantes",
-                "Técnicas Avançadas de Conexão",
-                "Comunicação e Consentimento",
-                "Prática Profissional e Ética"
-              ].map((modulo, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <CheckCircle className="text-golden flex-shrink-0" size={20} />
-                  <span className="text-muted-foreground">{modulo}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          
           
           <div className="animate-slide-up bg-card p-8 rounded-2xl shadow-soft">
             <h3 className="font-serif text-3xl font-bold text-foreground mb-6">
@@ -81,7 +63,7 @@ const CourseInfoSection = () => {
             
             <div className="space-y-6">
               <div className="border-l-4 border-golden pl-4">
-                <h4 className="font-semibold text-foreground mb-2">E-book "Conexão Íntima"</h4>
+                <h4 className="font-semibold text-foreground mb-2">E-book "Redescobrir"</h4>
                 <p className="text-muted-foreground text-sm">
                   Guia completo para fortalecer vínculos através do toque
                 </p>
@@ -113,8 +95,6 @@ const CourseInfoSection = () => {
           </p>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CourseInfoSection;
