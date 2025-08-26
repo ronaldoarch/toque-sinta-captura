@@ -1,7 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.56.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const supabase = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_ANON_KEY")!
+);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -25,15 +30,36 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Sending ebook to ${email} for ${name}`);
 
+    // Get the ebook file from storage
+    const { data: ebookFile, error: storageError } = await supabase.storage
+      .from('ebooks')
+      .download('guia-toque-sinta.pdf');
+
+    let attachments = undefined;
+    if (!storageError && ebookFile) {
+      // Convert blob to array buffer for attachment
+      const arrayBuffer = await ebookFile.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+      
+      attachments = [{
+        filename: 'Guia-Completo-Toque-Sinta.pdf',
+        content: uint8Array,
+        content_type: 'application/pdf'
+      }];
+    } else {
+      console.warn("Ebook file not found in storage:", storageError?.message);
+    }
+
     const emailResponse = await resend.emails.send({
       from: "Naira Lira <onboarding@resend.dev>",
       to: [email],
       subject: "🎁 Seu E-book Gratuito: Guia Completo de Toque e Sinta",
+      attachments,
       html: `
         <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center;">
             <h1 style="margin: 0; font-size: 28px;">Obrigada, ${name}! 🎉</h1>
-            <p style="margin: 15px 0 0 0; font-size: 18px;">Seu e-book está pronto para download</p>
+            <p style="margin: 15px 0 0 0; font-size: 18px;">Seu e-book está anexado neste email</p>
           </div>
           
           <div style="padding: 40px 30px; background: #f8f9fa;">
@@ -52,10 +78,11 @@ const handler = async (req: Request): Promise<Response> => {
               <li>📈 Progressão e evolução pessoal</li>
             </ul>
             
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="#" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
-                📥 Baixar E-book Agora
-              </a>
+            <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin: 30px 0; text-align: center;">
+              <h3 style="color: #1976d2; margin-bottom: 10px;">📎 E-book Anexado</h3>
+              <p style="color: #666; margin: 0;">
+                O arquivo PDF está anexado a este email. Verifique os anexos para fazer o download.
+              </p>
             </div>
             
             <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 30px;">
