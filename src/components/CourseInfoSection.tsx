@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Users, Award } from "lucide-react";
+import LeadCaptureModal from "./LeadCaptureModal";
+
 const CourseInfoSection = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in">
@@ -87,14 +91,19 @@ const CourseInfoSection = () => {
         </div>
         
         <div className="text-center animate-fade-in">
-          <Button variant="cta" size="lg" className="mb-4">
-            Inscreva-se Agora - Oferta Limitada
+          <Button variant="cta" size="lg" className="mb-4" onClick={() => setIsModalOpen(true)}>
+            Baixar E-book Gratuito
           </Button>
           <p className="text-sm text-muted-foreground">
             🔥 Últimas 48 horas com 50% de desconto
           </p>
         </div>
       </div>
+      
+      <LeadCaptureModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>;
 };
 export default CourseInfoSection;

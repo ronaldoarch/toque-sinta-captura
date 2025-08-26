@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
+import LeadCaptureModal from "./LeadCaptureModal";
 
 const VideoSection = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto">
@@ -31,14 +34,19 @@ const VideoSection = () => {
         </div>
         
         <div className="text-center animate-slide-up">
-          <Button variant="cta" size="lg" className="mb-6">
-            Quero Acesso Ao Curso Completo
+          <Button variant="cta" size="lg" className="mb-6" onClick={() => setIsModalOpen(true)}>
+            Baixar E-book Gratuito
           </Button>
           <p className="text-sm text-muted-foreground">
             ✨ Mais de 10 horas de conteúdo exclusivo
           </p>
         </div>
       </div>
+      
+      <LeadCaptureModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>
   );
 };

@@ -1,1 +1,4 @@
 project_id = "lukbvhmblaimqxuoiqbn"
+
+[functions.send-ebook]
+verify_jwt = false
