@@ -30,24 +30,29 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Sending ebook to ${email} for ${name}`);
 
-    // Get the ebook file from storage
-    const { data: ebookFile, error: storageError } = await supabase.storage
-      .from('ebooks')
-      .download('guia-toque-sinta.pdf');
-
+    // Try to get the ebook file from storage
     let attachments = undefined;
-    if (!storageError && ebookFile) {
-      // Convert blob to array buffer for attachment
-      const arrayBuffer = await ebookFile.arrayBuffer();
-      const uint8Array = new Uint8Array(arrayBuffer);
-      
-      attachments = [{
-        filename: 'Guia-Completo-Toque-Sinta.pdf',
-        content: uint8Array,
-        content_type: 'application/pdf'
-      }];
-    } else {
-      console.warn("Ebook file not found in storage:", storageError?.message);
+    try {
+      const { data: ebookFile, error: storageError } = await supabase.storage
+        .from('ebooks')
+        .download('guia-toque-sinta.pdf');
+
+      if (!storageError && ebookFile) {
+        // Convert blob to array buffer for attachment
+        const arrayBuffer = await ebookFile.arrayBuffer();
+        const uint8Array = new Uint8Array(arrayBuffer);
+        
+        attachments = [{
+          filename: 'Guia-Completo-Toque-Sinta.pdf',
+          content: uint8Array,
+          content_type: 'application/pdf'
+        }];
+        console.log("E-book attachment prepared successfully");
+      } else {
+        console.log("E-book file not found in storage, sending email without attachment");
+      }
+    } catch (storageError) {
+      console.log("Storage access error (sending email without attachment):", storageError);
     }
 
     const emailResponse = await resend.emails.send({
