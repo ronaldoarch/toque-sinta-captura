@@ -1,4 +1,4 @@
-import nairaImage from "@/assets/naira-lira-expert.jpg";
+const nairaImage = "/lovable-uploads/2f2d626c-581b-428b-9a02-318065c0c936.png";
 const ExpertSection = () => {
   return <section className="py-20 px-4 bg-gradient-earth">
       <div className="max-w-6xl mx-auto">
