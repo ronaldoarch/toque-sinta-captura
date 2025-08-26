@@ -1,4 +1,4 @@
-import nairaImage from "@/assets/naira-lira-expert.jpg";
+import nairaImage from "/lovable-uploads/41f7ee99-5c0f-43fa-b8f9-2ba661374cb5.png";
 
 const ExpertSection = () => {
   return (
