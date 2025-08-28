@@ -31,9 +31,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Sending ebook to ${email} for ${name}`);
 
-    // Try to get the ebook file from storage and create a signed URL
+    // Create download button with signed URL (faster approach)
     let downloadButtonHtml = '';
-    let attachments = undefined;
     
     try {
       // Create a signed URL for direct download
@@ -59,36 +58,28 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
         `;
         console.log("Download button with signed URL created successfully");
-      }
-
-      // Also try to attach the file to email
-      const { data: ebookFile, error: storageError } = await supabase.storage
-        .from('ebooks')
-        .download('guia-toque-sinta.pdf');
-
-      if (!storageError && ebookFile) {
-        // Convert blob to array buffer for attachment
-        const arrayBuffer = await ebookFile.arrayBuffer();
-        const uint8Array = new Uint8Array(arrayBuffer);
-        
-        attachments = [{
-          filename: 'Guia-Completo-Toque-Sinta.pdf',
-          content: uint8Array,
-          content_type: 'application/pdf'
-        }];
-        console.log("E-book attachment prepared successfully");
       } else {
-        console.log("E-book file not found for attachment, but download button available");
+        // Fallback message if file doesn't exist
+        downloadButtonHtml = `
+          <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 30px 0; text-align: center; border-left: 4px solid #ffc107;">
+            <p style="color: #856404; margin: 0; font-weight: bold;">
+              📧 E-book será enviado em breve
+            </p>
+            <p style="color: #856404; margin: 5px 0 0 0; font-size: 14px;">
+              Você receberá o link de download por email
+            </p>
+          </div>
+        `;
       }
     } catch (storageError) {
       console.log("Storage access error:", storageError);
       downloadButtonHtml = `
         <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 30px 0; text-align: center; border-left: 4px solid #ffc107;">
           <p style="color: #856404; margin: 0; font-weight: bold;">
-            📧 O e-book está anexado neste email
+            📧 E-book será enviado em breve
           </p>
           <p style="color: #856404; margin: 5px 0 0 0; font-size: 14px;">
-            Verifique os anexos para fazer o download
+            Você receberá o link de download por email
           </p>
         </div>
       `;
@@ -98,7 +89,7 @@ const handler = async (req: Request): Promise<Response> => {
       from: "Naira Lira <onboarding@resend.dev>",
       to: [email],
       subject: "🎁 Seu E-book Gratuito: Guia Completo de Toque e Sinta",
-      attachments,
+      
       html: `
         <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center;">
