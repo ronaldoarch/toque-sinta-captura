@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Users, Award } from "lucide-react";
 import LeadCaptureModal from "./LeadCaptureModal";
-
 const CourseInfoSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return <section className="py-20 px-4">
@@ -53,7 +52,7 @@ const CourseInfoSection = () => {
               <CheckCircle className="text-white" size={28} />
             </div>
             <h3 className="font-semibold text-lg mb-2">Garantia</h3>
-            <p className="text-muted-foreground">30 dias ou seu dinheiro de volta</p>
+            <p className="text-muted-foreground">7 dias ou seu dinheiro de volta</p>
           </div>
         </div>
 
@@ -81,10 +80,8 @@ const CourseInfoSection = () => {
               </div>
               
               <div className="border-l-4 border-golden pl-4">
-                <h4 className="font-semibold text-foreground mb-2">Aulas Ao Vivo Mensais</h4>
-                <p className="text-muted-foreground text-sm">
-                  Sessões de Q&A e prática em grupo
-                </p>
+                <h4 className="font-semibold text-foreground mb-2">Aulas diversificadas</h4>
+                <p className="text-muted-foreground text-sm">aulas com técnicas diferentes, e profissionais diferentes todo mês .</p>
               </div>
             </div>
           </div>
@@ -100,10 +97,7 @@ const CourseInfoSection = () => {
         </div>
       </div>
       
-      <LeadCaptureModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
+      <LeadCaptureModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>;
 };
 export default CourseInfoSection;
