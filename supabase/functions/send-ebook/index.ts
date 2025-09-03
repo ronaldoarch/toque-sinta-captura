@@ -86,7 +86,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const emailResponse = await resend.emails.send({
-      from: "Naira Lira <onboarding@resend.dev>",
+      from: "Naira Lira <noreply@agenciamidas.com>",
       to: [email],
       subject: "🎁 Seu E-book Gratuito: Guia Completo de Toque e Sinta",
       
