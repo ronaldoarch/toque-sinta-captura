@@ -22,6 +22,8 @@ const VideoSection = () => {
             <video 
               className="w-full h-full object-cover"
               controls
+              autoPlay
+              muted
               poster=""
               preload="metadata"
             >
