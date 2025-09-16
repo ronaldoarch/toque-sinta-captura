@@ -89,10 +89,10 @@ const CourseInfoSection = () => {
         
         <div className="text-center animate-fade-in">
           <Button variant="cta" size="lg" className="mb-4" onClick={() => setIsModalOpen(true)}>
-            Baixar E-book Gratuito
+            Entrar no Grupo VIP
           </Button>
           <p className="text-sm text-muted-foreground">
-            🔥 Últimas 48 horas com 50% de desconto
+            ✨ Acesso exclusivo ao grupo da comunidade
           </p>
         </div>
       </div>

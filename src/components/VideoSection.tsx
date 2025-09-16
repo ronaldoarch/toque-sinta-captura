@@ -37,7 +37,7 @@ const VideoSection = () => {
         
         <div className="text-center animate-slide-up">
           <Button variant="cta" size="lg" className="mb-6" onClick={() => setIsModalOpen(true)}>
-            Baixar E-book Gratuito
+            Entrar no Grupo VIP
           </Button>
           <p className="text-sm text-muted-foreground">
             ✨ Mais de 10 horas de conteúdo exclusivo

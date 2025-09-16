@@ -25,30 +25,9 @@ const LeadCaptureModal = ({ isOpen, onClose }: LeadCaptureModalProps) => {
     setIsLoading(true);
 
     try {
-      // Save lead to database
-      const { error: dbError } = await supabase
-        .from('leads')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null
-        }]);
-
-      if (dbError) throw dbError;
-
-      // Send ebook via email
-      const { error: emailError } = await supabase.functions.invoke('send-ebook', {
-        body: { 
-          name: formData.name,
-          email: formData.email 
-        }
-      });
-
-      if (emailError) throw emailError;
-
       toast({
         title: "Sucesso!",
-        description: "E-book enviado para seu email. Redirecionando para o WhatsApp...",
+        description: "Redirecionando para o WhatsApp...",
       });
 
       // Reset form and close modal
@@ -62,7 +41,7 @@ const LeadCaptureModal = ({ isOpen, onClose }: LeadCaptureModalProps) => {
     } catch (error: any) {
       toast({
         title: "Erro",
-        description: error.message || "Erro ao enviar e-book. Tente novamente.",
+        description: "Erro ao redirecionar. Tente novamente.",
         variant: "destructive",
       });
     } finally {
@@ -75,7 +54,7 @@ const LeadCaptureModal = ({ isOpen, onClose }: LeadCaptureModalProps) => {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center">
-            Receba o E-book Gratuito
+            Entrar no Grupo VIP
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -117,7 +96,7 @@ const LeadCaptureModal = ({ isOpen, onClose }: LeadCaptureModalProps) => {
             className="w-full" 
             disabled={isLoading}
           >
-            {isLoading ? "Enviando..." : "Receber E-book Grátis"}
+            {isLoading ? "Redirecionando..." : "Entrar no Grupo VIP"}
           </Button>
         </form>
       </DialogContent>
