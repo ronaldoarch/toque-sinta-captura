@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
-import LeadCaptureModal from "./LeadCaptureModal";
 
 const VideoSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleWhatsAppRedirect = () => {
+    window.open("https://chat.whatsapp.com/Gngh4SztFVG6JMv0lz72q3", "_blank");
+  };
+
   return (
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto">
@@ -36,7 +36,7 @@ const VideoSection = () => {
         </div>
         
         <div className="text-center animate-slide-up">
-          <Button variant="cta" size="lg" className="mb-6" onClick={() => setIsModalOpen(true)}>
+          <Button variant="cta" size="lg" className="mb-6" onClick={handleWhatsAppRedirect}>
             Entrar no Grupo VIP
           </Button>
           <p className="text-sm text-muted-foreground">
@@ -44,11 +44,6 @@ const VideoSection = () => {
           </p>
         </div>
       </div>
-      
-      <LeadCaptureModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
     </section>
   );
 };
